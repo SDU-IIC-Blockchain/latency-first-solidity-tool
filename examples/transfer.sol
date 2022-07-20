@@ -10,11 +10,11 @@ contract TransferBalance {
         bytes32[StateSizeFactor] Sig; // A time-consuming hash for simulating various gas costs
     }
 
-    struct __tx_arg_Transfer {
+    struct __tx_arg_def_Transfer {
         uint64 Value;
     }
 
-    function __tx_do_Transfer(address[] memory addr, __state_def_Transfer[] memory states, __tx_arg_Transfer memory arg) public pure returns (__state_def_Transfer[] memory newStates) {
+    function __tx_do_Transfer(address[] memory addr, __state_def_Transfer[] memory states, __tx_arg_def_Transfer memory arg) public pure returns (__state_def_Transfer[] memory newStates) {
         require(addr.length == states.length, "assert error");
         require(addr.length == 2, "the number of accounts must be 2");
         newStates = new __state_def_Transfer[](addr.length);
@@ -32,8 +32,12 @@ contract TransferBalance {
         return newStates;
     }
 
-    function __state_hash_Transfer(__state_def_Transfer memory state, __tx_arg_Transfer memory arg) public pure returns (bytes32){
-        return keccak256(abi.encodePacked(state.Balance, arg.Value));
+    function __state_hash_Transfer(__state_def_Transfer memory state) public pure returns (bytes32){
+        return keccak256(abi.encodePacked(state.Balance));
+    }
+
+    function __tx_arg_hash_Transfer(__tx_arg_def_Transfer memory arg) public pure returns (bytes32){
+        return keccak256(abi.encodePacked(arg.Value));
     }
 
     function FundAccounts(address[] memory addr) public {
@@ -42,7 +46,7 @@ contract TransferBalance {
         }
     }
 
-    function GetAccountBalance(address addr) public returns (uint64){
+    function GetAccountBalance(address addr) public view returns (uint64){
         return __state_comp_dict_Transfer[addr].Latest.Balance;
     }
 

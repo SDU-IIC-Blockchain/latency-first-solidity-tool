@@ -36,8 +36,8 @@ const myPlugin = {
                             addStateTx(knownStateTx, 'def', child.name.substring('__state_def_'.length));
                         } else if (child.type === 'FunctionDefinition' && child.name.startsWith('__state_hash_')) {
                             addStateTx(knownStateTx, 'hash', child.name.substring('__state_hash_'.length));
-                        } else if (child.type === 'StructDefinition' && child.name.startsWith('__tx_arg_')) {
-                            addStateTx(knownStateTx, 'arg', child.name.substring('__tx_arg_'.length));
+                        } else if (child.type === 'StructDefinition' && child.name.startsWith('__tx_arg_def_')) {
+                            addStateTx(knownStateTx, 'arg', child.name.substring('__tx_arg_def_'.length));
                         } else if (child.type === 'FunctionDefinition' && child.name.startsWith('__tx_do_')) {
                             addStateTx(knownStateTx, 'do', child.name.substring('__tx_do_'.length));
                         }
@@ -105,10 +105,10 @@ const options = {
 
 const templateFilename = './template.sol';
 const templateAstFilterPartial = {
-    'StructDefinition': ['__state_comp_element_NAME',],
-    'FunctionDefinition': ['__tx_online_NAME', '__tx_proof_NAME', '__tx_offline_NAME', '__tx_commit_NAME', '__tx_pending_len_NAME', '__tx_state_latest_NAME',],
+    'StructDefinition': ['__state_comp_element_NAME', '__pending_state_element_NAME',],
+    'FunctionDefinition': ['__tx_online_NAME', '__tx_proof_NAME', '__tx_offline_NAME', '__tx_commit_NAME', '__tx_pending_len_NAME', '__tx_state_latest_NAME', '__tx_last_pending_state_NAME',],
 };
-const templateNames = ['__state_comp_element_NAME', '__tx_online_NAME', '__tx_proof_NAME', '__tx_offline_NAME', '__tx_commit_NAME', '__tx_pending_len_NAME', '__tx_state_latest_NAME', '__state_def_NAME', '__tx_arg_NAME', '__state_comp_dict_NAME', '__tx_do_NAME', '__state_hash_NAME',]
+const templateNames = ['__state_comp_element_NAME', '__pending_state_element_NAME', '__tx_online_NAME', '__tx_proof_NAME', '__tx_offline_NAME', '__tx_commit_NAME', '__tx_pending_len_NAME', '__tx_state_latest_NAME', '__state_def_NAME', '__tx_arg_hash_NAME', '__tx_arg_def_NAME', '__state_comp_dict_NAME', '__tx_do_NAME', '__state_hash_NAME', '__tx_last_pending_state_NAME',]
 const templateAst = {};
 data = fs.readFileSync(templateFilename, 'utf8');
 

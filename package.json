@@ -1,4 +1,10 @@
 {
+  "name": "latency-first-solidity-tool",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SDU-IIC-Blockchain/latency-first-solidity-tool.git"
+  },
   "license": "WTFPL",
   "scripts": {
     "start": "node main.js",
